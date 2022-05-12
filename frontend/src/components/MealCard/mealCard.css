@@ -1,0 +1,24 @@
+.cardContent {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.cardContent .info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.cardContent .red {
+  color: var(--red);
+}
+
+.cardContent .actionBtns {
+  display: flex;
+  align-items: center;
+}

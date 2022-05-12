@@ -1,0 +1,60 @@
+:root {
+  --blue-shadow: rgba(42, 79, 114, 0.1);
+  --red-shadow: rgba(230, 53, 29, 0.4);
+  --white: #ffffff;
+  --dark: #333333;
+  --blue: #292673;
+  --dark-blue: #1c1a59;
+  --light-grey: #f2f3f3;
+  --grey: #f4f4f4;
+  --hover-grey: #ebebeb;
+  --dark-grey: #6c6c6c;
+  --red: #e6351d;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    "Inter" sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+html,
+#root,
+.app {
+  width: 100%;
+  height: 100%;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.heading {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--dark);
+}
+
+.description {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--dark-grey);
+}
+
+.text-bold {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}

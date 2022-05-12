@@ -1,0 +1,53 @@
+.sidePanel {
+  background-color: var(--grey);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 40px;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.sidePanelItem {
+  background-color: var(--white);
+  border-radius: 40px;
+  height: 74px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 300ms ease;
+  gap: 1rem;
+}
+
+.sidePanelItem.selected {
+  gap: 1rem;
+  flex-direction: column;
+  height: fit-content;
+  padding: 2rem;
+  box-shadow: 0px 0px 20px 3px var(--blue-shadow);
+}
+
+.sidePanelItem .description {
+  display: none;
+}
+
+.sidePanelItem.selected .description {
+  display: block;
+  text-align: center;
+}
+
+.sidePanelItem.selected .heading {
+  color: var(--red);
+}
+
+.sidePanelItem.selected .icon {
+  color: var(--red);
+  margin-top: -3.5rem;
+}
+
+.sidePanelItem:hover {
+  box-shadow: 0px 0px 20px 3px var(--blue-shadow);
+}

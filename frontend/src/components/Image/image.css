@@ -1,0 +1,25 @@
+.imgWrapper {
+  width: fit-content;
+  height: fit-content;
+}
+
+img {
+  border-radius: 4px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.small-rectangle {
+  height: 100px;
+  width: 180px;
+}
+
+.big-rectangle {
+  height: 80%;
+  width: 100%;
+}
+
+.small-square {
+  height: 115px;
+  width: 115px;
+}
