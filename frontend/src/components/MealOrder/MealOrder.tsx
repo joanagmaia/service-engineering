@@ -1,9 +1,8 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
-import Card from "../Card";
-import Image, { ImgType } from "../Image";
 import RoundButton, { RoundButtonColor, RoundButtonSize } from "../RoundButton";
-import "./mealCard.css";
+import "./mealOrder.css";
+import Image, { ImgType } from "../Image";
 
 type PropTypes = {
   title: string;
@@ -12,23 +11,24 @@ type PropTypes = {
   quantity: string;
 };
 
-const MealCard = ({ title, description, price, quantity }: PropTypes) => {
+const MealOrder = ({ title, description, price, quantity }: PropTypes) => {
   return (
-    <Card>
-      <div className="cardContent">
+    <div className="mealOrder">
+      <div className="mealOrderImage">
         <Image
           src="https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1"
           alt="mealCard"
-          type={ImgType.SmallRectangle}
+          type={ImgType.SmallSquare}
         />
-        <div className="info">
-          <span className="heading">{title}</span>
-          <span className="description">{description}</span>
-          <span className="text-bold">
-            <span className="red">$ </span>
-            {price}
-          </span>
-        </div>
+        <span className="quantity">{quantity}</span>
+      </div>
+      <div className="mealOrderInfo">
+        <span className="heading">{title}</span>
+        <span className="description">{description}</span>
+        <span className="text-bold">
+          <span className="red">$ </span>
+          {price}
+        </span>
         <div className="actionBtns">
           <RoundButton
             icon={faMinus}
@@ -56,8 +56,8 @@ const MealCard = ({ title, description, price, quantity }: PropTypes) => {
           />
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
 
-export default MealCard;
+export default MealOrder;

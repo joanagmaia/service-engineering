@@ -5,16 +5,18 @@ import RoundButton, {
   RoundButtonColor,
   RoundButtonSize,
 } from "../../components/RoundButton";
+import ShoppingCart from "../../components/ShoppingCart";
 import SidePanel, { MealOptions } from "../../components/SidePanel";
 import "./menu.css";
 
 const Menu = () => {
   const [selectedOption, setSelectedOption] = useState(MealOptions.Soups);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
     <div className="page">
       <header>
-        <h3 className="heading">Restaurant Name Menu</h3>
+        <h3 className="heading">Group 12 Menu</h3>
         <div className="actionBtns">
           <RoundButton
             icon={faCamera}
@@ -30,7 +32,8 @@ const Menu = () => {
             iconColor="#1c1a59"
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Big}
-            onClick={() => null}
+            notification="2"
+            onClick={() => setIsCartOpen(true)}
           />
         </div>
       </header>
@@ -42,14 +45,45 @@ const Menu = () => {
           />
         </div>
         <div className="mealCards">
-          <MealCard />
-          <MealCard />
-          <MealCard />
-          <MealCard />
-          <MealCard />
-          <MealCard />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
+          <MealCard
+            title="Meal 1"
+            description="Small description"
+            price="5.05"
+            quantity="1"
+          />
         </div>
       </div>
+      {isCartOpen && <ShoppingCart onCloseClick={() => setIsCartOpen(false)} />}
     </div>
   );
 };

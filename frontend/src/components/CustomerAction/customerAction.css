@@ -1,0 +1,22 @@
+.customerActionContainer {
+  background-color: var(--grey);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customerActionContainer.regular {
+  flex: 1;
+}
+
+.customerActionContainer.big {
+  flex: 2;
+}
+
+.customerActionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}

@@ -1,0 +1,48 @@
+.mealOrder {
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  border-bottom: 1px solid var(--hover-grey);
+  gap: 2rem;
+}
+
+.mealOrderImage {
+  border-radius: 4px;
+  border: 1px solid var(--hover-grey);
+  padding: 1rem 1rem 0.8rem 1rem;
+  position: relative;
+}
+
+.mealOrderImage .quantity {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--hover-grey);
+  width: 32px;
+  height: 32px;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  top: -16px;
+  right: -16px;
+}
+
+.mealOrderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mealOrderInfo > .text-bold {
+  margin-top: 0.5rem;
+}
+
+.mealOrderInfo .red {
+  color: var(--red);
+}
+
+.mealOrderInfo .actionBtns {
+  display: flex;
+  align-items: center;
+}
