@@ -1,0 +1,368 @@
+openapi: 3.0.2
+
+servers:
+  - url: /api/v1
+
+info:
+  title: Service Engineering Backend
+  description: Service Engineering Backend REST API
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: auth.verify_token
+  schemas:
+    productType:
+      type: string
+      enum:
+        - Soup
+        - Appetizer
+        - Main
+        - Dessert
+        - Beverage
+      description: Type of the product
+      example: Soup
+    orderStatus:
+      type: string
+      description: Status of the order
+      enum:
+        - Waiting
+        - In Progress
+        - Finished
+        - Completed
+      example: Waiting
+    product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier (UUID) of the product
+          example: aa568247-d8c2-4869-af7e-182a431add74
+        title:
+          type: string
+          description: The title of the product
+          example: Double Cheeseburger
+        description:
+          type: string
+          description: Brief description of the product
+          example: Made with high quality ingredients
+        image:
+          type: string
+          description: Image hosting source
+          example: https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1
+        price:
+          type: number
+          description: Price of the product
+          example: 5.05
+        product_type:
+          $ref: "#/components/schemas/productType"
+
+    orderItem:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Selected quantity of the product
+          example: 2
+        product:
+          type: object
+          $ref: "#/components/schemas/product"
+
+paths:
+  /products:
+    get:
+      summary: Get a list of all the products that match the filtering
+      tags:
+        - Products
+      parameters:
+        - in: query
+          name: product_type
+          schema:
+            $ref: "#/components/schemas/productType"
+          description: The type of product to retrieve
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  limit:
+                    type: integer
+                    description: The numbers of items to return
+                    example: 10
+                  offset:
+                    type: integer
+                    description: The number of items to skip before starting to collect the result set
+                    example: 0
+                  count:
+                    type: integer
+                    description: Total number of items across all pages
+                    example: 1
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/product"
+        400:
+          description: Bad request. Product type does not exist. Must be either Soup, Appetizer, Main, Desser, or Beverage
+        401:
+          description: Authorization information is missing or invalid.
+        5XX:
+          description: Unexpected error.
+
+  /products/{id}:
+    get:
+      summary: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: aa568247-d8c2-4869-af7e-182a431add74
+          required: true
+          description: The ID of product to retrieve
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/product"
+        400:
+          description: Bad request. ID must be a string
+        401:
+          description: Authorization information is missing or invalid.
+        404:
+          description: A product with the specified ID was not found.
+        5XX:
+          description: Unexpected error.
+
+  /orders:
+    get:
+      summary: Get a list of all orders
+      tags:
+        - Orders
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Identifier (UUID) of the order
+                    example: 2f098793-3641-4759-b6b0-daf98b896974
+                  total_price:
+                    type: integer
+                    description: Total price of the order
+                    example: 14.01
+                  status:
+                    $ref: "#/components/schemas/orderStatus"
+                  staff_name:
+                    type: string
+                    description: Name of the staff in charge
+                    example: John Doe
+                  location_tag:
+                    type: string
+                    description: Identifier of the location tag
+                    example: LT1
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/orderItem"
+
+    post:
+      summary: Add a new order
+      tags:
+        - Orders
+      requestBody:
+        description: All required information to submit a new order into the system
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                total_price:
+                  type: integer
+                  description: Total price of the order
+                  example: 14.01
+                location_tag:
+                  type: string
+                  description: Identifier of the location tag
+                  example: LT1
+                items:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/orderItem"
+
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Identifier (UUID) of the order
+                    example: 2f098793-3641-4759-b6b0-daf98b896974
+                  total_price:
+                    type: integer
+                    description: Total price of the order
+                    example: 14.01
+                  status:
+                    $ref: "#/components/schemas/orderStatus"
+                  staff_name:
+                    type: string
+                    description: Name of the staff in charge
+                    example: John Doe
+                  location_tag:
+                    type: string
+                    description: Identifier of the location tag
+                    example: LT1
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/orderItem"
+        400:
+          description: Bad request. Request body is incorrect or invalid
+        401:
+          description: Authorization information is missing or invalid
+        5XX:
+          description: Unexpected error.
+
+  /orders/{id}:
+    put:
+      summary: Update order
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: aa568247-d8c2-4869-af7e-182a431add74
+          required: true
+          description: The ID of the product to update
+      requestBody:
+        description: Order with updated status
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  $ref: "#/components/schemas/orderStatus"
+                staff_name:
+                  type: string
+                  description: Name of the staff in charge
+                  example: John Doe
+      responses:
+        201:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Identifier (UUID) of the order
+                    example: 2f098793-3641-4759-b6b0-daf98b896974
+                  total_price:
+                    type: integer
+                    description: Total price of the order
+                    example: 14.01
+                  status:
+                    $ref: "#/components/schemas/orderStatus"
+                  staff_name:
+                    type: string
+                    description: Name of the staff in charge
+                    example: John Doe
+                  location_tag:
+                    type: string
+                    description: Identifier of the location tag
+                    example: LT1
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/orderItem"
+
+  /users/photos:
+    post:
+      summary: Add a new photo to a given user
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad request. Content type is invalid
+        401:
+          description: Authorization information is missing or invalid
+        5XX:
+          description: Unexpected error.
+
+  /staff/auth:
+    post:
+      summary: Authenticate kitchen staff with credentials
+      tags:
+        - Staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Username of kitchen staff
+                  example: johndoe
+                password:
+                  type: string
+                  description: Password of kitchen staff
+                  example: 1234pass
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT Authentication token
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        400:
+          description: Bad request. Request body is incorrect or invalid
+        5XX:
+          description: Unexpected error.
