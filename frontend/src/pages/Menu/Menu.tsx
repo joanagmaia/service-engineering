@@ -1,5 +1,5 @@
 import { faCamera, faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { memo, useState } from "react";
 import MealCard from "../../components/MealCard";
 import RoundButton, {
   RoundButtonColor,
@@ -7,11 +7,56 @@ import RoundButton, {
 } from "../../components/RoundButton";
 import ShoppingCart from "../../components/ShoppingCart";
 import SidePanel, { MealOptions } from "../../components/SidePanel";
+import { Order } from "../../typings/orders";
+import { Product } from "../../typings/products";
 import "./menu.css";
 
-const Menu = () => {
+type PropTypes = {
+  products: Product[];
+};
+
+const Menu = ({ products }: PropTypes) => {
   const [selectedOption, setSelectedOption] = useState(MealOptions.Soups);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  const handleOrderSubmission = () => {
+    setIsCartOpen(false);
+    setOrders([]);
+  };
+
+  const addToCart = (id: string, quantity: number) => {
+    const product = products.find((p) => p.id === id);
+    const isInCard = orders.some((o) => o.product.id === id);
+
+    if (!isInCard) {
+      setOrders((prev) => [
+        ...prev,
+        {
+          quantity,
+          product,
+        } as Order,
+      ]);
+    } else {
+      setOrders((prev) => {
+        const index = prev.findIndex((o: Order) => quantity + o.quantity === 0);
+
+        if (index !== -1) {
+          prev.splice(index, 1);
+        }
+        return prev.map((o) => {
+          if (o.product.id === id) {
+            return {
+              ...o,
+              quantity: quantity + o.quantity,
+            };
+          }
+
+          return o;
+        });
+      });
+    }
+  };
 
   return (
     <div className="page">
@@ -32,7 +77,11 @@ const Menu = () => {
             iconColor="#1c1a59"
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Big}
-            notification="2"
+            notification={
+              orders.length
+                ? String(orders.reduce((a, b) => +a + +b.quantity, 0))
+                : undefined
+            }
             onClick={() => setIsCartOpen(true)}
           />
         </div>
@@ -45,47 +94,28 @@ const Menu = () => {
           />
         </div>
         <div className="mealCards">
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
-          <MealCard
-            title="Meal 1"
-            description="Small description"
-            price="5.05"
-            quantity="1"
-          />
+          {products?.map((d: Product) => (
+            <MealCard
+              key={d.id}
+              id={d.id}
+              title={d.title}
+              description={d.description}
+              price={d.price}
+              onAddToCard={addToCart}
+            />
+          ))}
         </div>
       </div>
-      {isCartOpen && <ShoppingCart onCloseClick={() => setIsCartOpen(false)} />}
+      {isCartOpen && (
+        <ShoppingCart
+          orders={orders}
+          onCloseClick={() => setIsCartOpen(false)}
+          handleQuantity={addToCart}
+          handleOrderSubmission={handleOrderSubmission}
+        />
+      )}
     </div>
   );
 };
 
-export default Menu;
+export default memo(Menu);

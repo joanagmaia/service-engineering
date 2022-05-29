@@ -1,4 +1,5 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
 import Card from "../Card";
 import Image, { ImgType } from "../Image";
@@ -6,13 +7,22 @@ import RoundButton, { RoundButtonColor, RoundButtonSize } from "../RoundButton";
 import "./mealCard.css";
 
 type PropTypes = {
+  id: string;
   title: string;
   description: string;
-  price: string;
-  quantity: string;
+  price: number;
+  onAddToCard: (id: string, quantity: number) => void;
 };
 
-const MealCard = ({ title, description, price, quantity }: PropTypes) => {
+const MealCard = ({
+  id,
+  title,
+  description,
+  price,
+  onAddToCard,
+}: PropTypes) => {
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <Card>
       <div className="cardContent">
@@ -34,7 +44,9 @@ const MealCard = ({ title, description, price, quantity }: PropTypes) => {
             icon={faMinus}
             iconColor="black"
             iconSize="xs"
-            onClick={() => null}
+            onClick={() =>
+              quantity > 1 ? setQuantity((prev) => prev - 1) : null
+            }
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Small}
           />
@@ -43,7 +55,7 @@ const MealCard = ({ title, description, price, quantity }: PropTypes) => {
             icon={faPlus}
             iconColor="black"
             iconSize="xs"
-            onClick={() => null}
+            onClick={() => setQuantity((prev) => prev + 1)}
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Small}
           />
@@ -52,7 +64,7 @@ const MealCard = ({ title, description, price, quantity }: PropTypes) => {
             shape={ButtonShape.Compact}
             btnSize={ButtonSize.Small}
             btnColor={ButtonColor.DarkBlue}
-            onClick={() => null}
+            onClick={() => onAddToCard(id, quantity)}
           />
         </div>
       </div>

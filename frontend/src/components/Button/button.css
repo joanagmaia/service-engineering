@@ -6,21 +6,31 @@
   font-weight: 700;
 }
 
-.btn.dark-blue {
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: var(--hover-grey);
+}
+
+.btn.green:not(:disabled) {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.btn.dark-blue:not(:disabled) {
   background-color: var(--dark-blue);
   color: var(--white);
 }
 
-.btn.dark-blue:hover {
+.btn.dark-blue:hover:not(:disabled) {
   background-color: var(--blue);
 }
 
-.btn.light-grey {
+.btn.light-grey:not(:disabled) {
   background-color: var(--light-grey);
   color: var(--dark-blu);
 }
 
-.btn.light-grey:hover {
+.btn.light-grey:hover:not(:disabled) {
   background-color: var(--hover-grey);
 }
 

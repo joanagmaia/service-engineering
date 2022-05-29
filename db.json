@@ -1,0 +1,56 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Double Cheeseburger",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "is_vegan": false
+    },
+    {
+      "id": "2",
+      "title": "Vegan Whooper",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "is_vegan": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "total_price": 14.01,
+      "status": "Waiting",
+      "location_tag": "LT1",
+      "items": [
+        {
+          "quantity": 2,
+          "product": {
+            "id": "aa568247-d8c2-4869-af7e-182a431add74",
+            "title": "Double Cheeseburger",
+            "description": "Made with high quality ingredients",
+            "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+            "price": 5.05,
+            "product_type": "Soup"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Hqf6AVL"
+    },
+    {
+      "id": "NqiNmwz"
+    },
+    {
+      "id": "X9gQTdp"
+    },
+    {
+      "id": "yaGaN3q"
+    },
+    {
+      "id": "VUspnp-"
+    }
+  ]
+}

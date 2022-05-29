@@ -1,17 +1,25 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
 import RoundButton, { RoundButtonColor, RoundButtonSize } from "../RoundButton";
 import "./mealOrder.css";
 import Image, { ImgType } from "../Image";
 
 type PropTypes = {
+  id: string;
   title: string;
   description: string;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
+  handleQuantity: (id: string, quantity: number) => void;
 };
 
-const MealOrder = ({ title, description, price, quantity }: PropTypes) => {
+const MealOrder = ({
+  id,
+  title,
+  description,
+  price,
+  quantity,
+  handleQuantity,
+}: PropTypes) => {
   return (
     <div className="mealOrder">
       <div className="mealOrderImage">
@@ -34,7 +42,7 @@ const MealOrder = ({ title, description, price, quantity }: PropTypes) => {
             icon={faMinus}
             iconColor="black"
             iconSize="xs"
-            onClick={() => null}
+            onClick={() => handleQuantity(id, -1)}
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Small}
           />
@@ -43,16 +51,9 @@ const MealOrder = ({ title, description, price, quantity }: PropTypes) => {
             icon={faPlus}
             iconColor="black"
             iconSize="xs"
-            onClick={() => null}
+            onClick={() => handleQuantity(id, 1)}
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Small}
-          />
-          <Button
-            text="Add to cart"
-            shape={ButtonShape.Compact}
-            btnSize={ButtonSize.Small}
-            btnColor={ButtonColor.DarkBlue}
-            onClick={() => null}
           />
         </div>
       </div>

@@ -3,6 +3,7 @@ import "./button.css";
 export enum ButtonColor {
   LightGrey = "light-grey",
   DarkBlue = "dark-blue",
+  Green = "green",
 }
 
 export enum ButtonSize {
@@ -20,12 +21,24 @@ type PropTypes = {
   btnSize: ButtonSize;
   btnColor: ButtonColor;
   shape: ButtonShape;
+  disabled?: boolean;
   onClick: () => void;
 };
 
-const Button = ({ text, shape, btnSize, btnColor, onClick }: PropTypes) => {
+const Button = ({
+  text,
+  shape,
+  btnSize,
+  btnColor,
+  disabled,
+  onClick,
+}: PropTypes) => {
   return (
-    <button className={`btn ${btnSize} ${btnColor} ${shape}`} onClick={onClick}>
+    <button
+      className={`btn ${btnSize} ${btnColor} ${shape}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <span>{text}</span>
     </button>
   );
