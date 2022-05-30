@@ -1,11 +1,11 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MealOptions } from "./SidePanel";
+import { ProductType } from "../../typings/products";
 
 type PropTypes = {
-  onClick: (option: MealOptions) => void;
+  onClick: (option: ProductType) => void;
   name: string;
-  value: MealOptions;
+  value: ProductType;
   isSelected: boolean;
   icon: IconDefinition;
 };

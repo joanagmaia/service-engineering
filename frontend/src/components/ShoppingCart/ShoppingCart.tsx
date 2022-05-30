@@ -38,10 +38,13 @@ const ShoppingCart = ({
 
   const submitOrder = () => {
     if (isOrderValid) {
+      const items = orders.map((o) => ({
+        [o.product.id]: o.quantity,
+      }));
       postOrder({
-        total_price: totalPrice,
-        location_tag: locationTag,
-        items: orders,
+        totalPrice,
+        locationTag,
+        items,
       }).then(() => {
         handleOrderSubmission();
       });

@@ -4,27 +4,30 @@ import Button, {
   ButtonShape,
   ButtonSize,
 } from "../../components/Button";
-import { usePostAuth } from "../../hooks";
+import { usePostLogin } from "../../hooks";
 import "./signIn.css";
+import { useNavigate } from "react-router-dom";
+import { AuthResponse } from "../../typings/auth";
 
 const SignIn = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const { postAuth } = usePostAuth();
+  const { postLogin } = usePostLogin();
+  const navigate = useNavigate();
 
   const isFormValid = !!username && !!password;
 
   const handleOnSubmit = useCallback(() => {
     if (isFormValid) {
-      postAuth({
+      postLogin({
         username,
         password,
-      }).then(() => {
-        // TBD: Move to new route
-        // Add response token to local storage
+      }).then((response: AuthResponse) => {
+        localStorage.setItem("token", response.token);
+        navigate("/orders");
       });
     }
-  }, [isFormValid, password, postAuth, username]);
+  }, [isFormValid, navigate, password, postLogin, username]);
 
   return (
     <div className="page signIn">

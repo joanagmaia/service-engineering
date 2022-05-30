@@ -18,7 +18,7 @@ const OrdersList = ({ orders, setSelectedOrder, selectedId }: PropTypes) => {
         <p className="text-bold">Status</p>
       </div>
       <div className="tableRows">
-        {orders?.results.map((order) => (
+        {orders?.map((order) => (
           <div
             key={order.id}
             className={`tableRow ${selectedId === order.id ? "selected" : ""}`}

@@ -1,368 +1,334 @@
-openapi: 3.0.2
-
-servers:
-  - url: /api/v1
-
+---
+openapi: 3.0.3
 info:
-  title: Service Engineering Backend
-  description: Service Engineering Backend REST API
+  title: Backend API (development)
+  description: MSE Services Design Backend Project
+  contact:
+    name: "Fernando França, Joana Maia, João Pimentel"
   version: 1.0.0
-
+paths:
+  /orders:
+    get:
+      tags:
+        - Order Resource
+      operationId: readAll
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: "#/components/schemas/Status"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+    post:
+      tags:
+        - Order Resource
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: OK
+  /orders/{id}:
+    get:
+      tags:
+        - Order Resource
+      operationId: read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+    put:
+      tags:
+        - Order Resource
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+    delete:
+      tags:
+        - Order Resource
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /orders/{id}/photo:
+    post:
+      tags:
+        - Order Resource
+      operationId: updatePhoto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/FormData"
+      responses:
+        "200":
+          description: OK
+  /products:
+    get:
+      tags:
+        - Product Resource
+      operationId: readAll
+      parameters:
+        - name: type
+          in: query
+          schema:
+            $ref: "#/components/schemas/Type"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      tags:
+        - Product Resource
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: OK
+  /products/{id}:
+    get:
+      tags:
+        - Product Resource
+      operationId: read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+  /staffs:
+    post:
+      tags:
+        - Staff Resource
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Staff"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Staff"
+  /staffs/login:
+    post:
+      tags:
+        - Staff Resource
+      operationId: login
+      parameters:
+        - name: password
+          in: query
+          schema:
+            type: string
+        - name: username
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Staff"
+  /staffs/logout:
+    post:
+      tags:
+        - Staff Resource
+      operationId: logout
+      parameters:
+        - name: token
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Staff"
 components:
-  securitySchemes:
-    jwt:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      x-bearerInfoFunc: auth.verify_token
   schemas:
-    productType:
-      type: string
-      enum:
-        - Soup
-        - Appetizer
-        - Main
-        - Dessert
-        - Beverage
-      description: Type of the product
-      example: Soup
-    orderStatus:
-      type: string
-      description: Status of the order
-      enum:
-        - Waiting
-        - In Progress
-        - Finished
-        - Completed
-      example: Waiting
-    product:
+    File:
+      type: object
+      properties:
+        path:
+          type: string
+        invalid:
+          type: boolean
+        name:
+          type: string
+        parent:
+          type: string
+        parentFile:
+          $ref: "#/components/schemas/File"
+        absolute:
+          type: boolean
+        absolutePath:
+          type: string
+        absoluteFile:
+          $ref: "#/components/schemas/File"
+        canonicalPath:
+          type: string
+        canonicalFile:
+          $ref: "#/components/schemas/File"
+        directory:
+          type: boolean
+        file:
+          type: boolean
+        hidden:
+          type: boolean
+        totalSpace:
+          format: int64
+          type: integer
+        freeSpace:
+          format: int64
+          type: integer
+        usableSpace:
+          format: int64
+          type: integer
+    FormData:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/File"
+        filename:
+          type: string
+        mimetype:
+          type: string
+    Order:
       type: object
       properties:
         id:
-          type: string
-          description: Identifier (UUID) of the product
-          example: aa568247-d8c2-4869-af7e-182a431add74
-        title:
-          type: string
-          description: The title of the product
-          example: Double Cheeseburger
-        description:
-          type: string
-          description: Brief description of the product
-          example: Made with high quality ingredients
-        image:
-          type: string
-          description: Image hosting source
-          example: https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1
-        price:
+          $ref: "#/components/schemas/UUID"
+        totalPrice:
+          format: float
           type: number
-          description: Price of the product
-          example: 5.05
-        product_type:
-          $ref: "#/components/schemas/productType"
-
-    orderItem:
+        status:
+          $ref: "#/components/schemas/Status"
+        staffName:
+          type: string
+        locationTag:
+          type: string
+        items:
+          type: object
+          additionalProperties:
+            format: int32
+            type: integer
+    Product:
       type: object
       properties:
-        quantity:
-          type: integer
-          description: Selected quantity of the product
-          example: 2
-        product:
-          type: object
-          $ref: "#/components/schemas/product"
-
-paths:
-  /products:
-    get:
-      summary: Get a list of all the products that match the filtering
-      tags:
-        - Products
-      parameters:
-        - in: query
-          name: product_type
-          schema:
-            $ref: "#/components/schemas/productType"
-          description: The type of product to retrieve
-        - in: query
-          name: offset
-          schema:
-            type: integer
-          description: The number of items to skip before starting to collect the result set
-        - in: query
-          name: limit
-          schema:
-            type: integer
-          description: The numbers of items to return
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  limit:
-                    type: integer
-                    description: The numbers of items to return
-                    example: 10
-                  offset:
-                    type: integer
-                    description: The number of items to skip before starting to collect the result set
-                    example: 0
-                  count:
-                    type: integer
-                    description: Total number of items across all pages
-                    example: 1
-                  results:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/product"
-        400:
-          description: Bad request. Product type does not exist. Must be either Soup, Appetizer, Main, Desser, or Beverage
-        401:
-          description: Authorization information is missing or invalid.
-        5XX:
-          description: Unexpected error.
-
-  /products/{id}:
-    get:
-      summary: Get a product by ID
-      tags:
-        - Products
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-            example: aa568247-d8c2-4869-af7e-182a431add74
-          required: true
-          description: The ID of product to retrieve
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/product"
-        400:
-          description: Bad request. ID must be a string
-        401:
-          description: Authorization information is missing or invalid.
-        404:
-          description: A product with the specified ID was not found.
-        5XX:
-          description: Unexpected error.
-
-  /orders:
-    get:
-      summary: Get a list of all orders
-      tags:
-        - Orders
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Identifier (UUID) of the order
-                    example: 2f098793-3641-4759-b6b0-daf98b896974
-                  total_price:
-                    type: integer
-                    description: Total price of the order
-                    example: 14.01
-                  status:
-                    $ref: "#/components/schemas/orderStatus"
-                  staff_name:
-                    type: string
-                    description: Name of the staff in charge
-                    example: John Doe
-                  location_tag:
-                    type: string
-                    description: Identifier of the location tag
-                    example: LT1
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/orderItem"
-
-    post:
-      summary: Add a new order
-      tags:
-        - Orders
-      requestBody:
-        description: All required information to submit a new order into the system
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                total_price:
-                  type: integer
-                  description: Total price of the order
-                  example: 14.01
-                location_tag:
-                  type: string
-                  description: Identifier of the location tag
-                  example: LT1
-                items:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/orderItem"
-
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Identifier (UUID) of the order
-                    example: 2f098793-3641-4759-b6b0-daf98b896974
-                  total_price:
-                    type: integer
-                    description: Total price of the order
-                    example: 14.01
-                  status:
-                    $ref: "#/components/schemas/orderStatus"
-                  staff_name:
-                    type: string
-                    description: Name of the staff in charge
-                    example: John Doe
-                  location_tag:
-                    type: string
-                    description: Identifier of the location tag
-                    example: LT1
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/orderItem"
-        400:
-          description: Bad request. Request body is incorrect or invalid
-        401:
-          description: Authorization information is missing or invalid
-        5XX:
-          description: Unexpected error.
-
-  /orders/{id}:
-    put:
-      summary: Update order
-      tags:
-        - Orders
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-            example: aa568247-d8c2-4869-af7e-182a431add74
-          required: true
-          description: The ID of the product to update
-      requestBody:
-        description: Order with updated status
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  $ref: "#/components/schemas/orderStatus"
-                staff_name:
-                  type: string
-                  description: Name of the staff in charge
-                  example: John Doe
-      responses:
-        201:
-          description: Updated
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Identifier (UUID) of the order
-                    example: 2f098793-3641-4759-b6b0-daf98b896974
-                  total_price:
-                    type: integer
-                    description: Total price of the order
-                    example: 14.01
-                  status:
-                    $ref: "#/components/schemas/orderStatus"
-                  staff_name:
-                    type: string
-                    description: Name of the staff in charge
-                    example: John Doe
-                  location_tag:
-                    type: string
-                    description: Identifier of the location tag
-                    example: LT1
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/orderItem"
-
-  /users/photos:
-    post:
-      summary: Add a new photo to a given user
-      tags:
-        - Users
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      responses:
-        201:
-          description: Created
-        400:
-          description: Bad request. Content type is invalid
-        401:
-          description: Authorization information is missing or invalid
-        5XX:
-          description: Unexpected error.
-
-  /staff/auth:
-    post:
-      summary: Authenticate kitchen staff with credentials
-      tags:
-        - Staff
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  description: Username of kitchen staff
-                  example: johndoe
-                password:
-                  type: string
-                  description: Password of kitchen staff
-                  example: 1234pass
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-                    description: JWT Authentication token
-                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-        400:
-          description: Bad request. Request body is incorrect or invalid
-        5XX:
-          description: Unexpected error.
+        id:
+          $ref: "#/components/schemas/UUID"
+        title:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        price:
+          format: float
+          type: number
+        type:
+          $ref: "#/components/schemas/Type"
+    Staff:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        username:
+          type: string
+        password:
+          type: string
+        token:
+          type: string
+    Status:
+      enum:
+        - WAITING
+        - IN_PROGRESS
+        - PREPARED
+        - DELIVERED
+      type: string
+    Type:
+      enum:
+        - APPETIZER
+        - BEVERAGE
+        - DESSERT
+        - MAIN
+        - SOUP
+      type: string
+    UUID:
+      format: uuid
+      pattern: "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+      type: string

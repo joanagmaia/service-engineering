@@ -1,24 +1,31 @@
 import { faCamera, faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { memo, useState } from "react";
+import { UseQueryResult } from "react-query";
 import MealCard from "../../components/MealCard";
 import RoundButton, {
   RoundButtonColor,
   RoundButtonSize,
 } from "../../components/RoundButton";
 import ShoppingCart from "../../components/ShoppingCart";
-import SidePanel, { MealOptions } from "../../components/SidePanel";
+import SidePanel from "../../components/SidePanel";
+import { useGetProduct } from "../../hooks";
 import { OrderItem } from "../../typings/orders";
-import { Product } from "../../typings/products";
+import { Product, ProductsResponse, ProductType } from "../../typings/products";
 import "./menu.css";
 
-type PropTypes = {
-  products: Product[];
-};
-
-const Menu = ({ products }: PropTypes) => {
-  const [selectedOption, setSelectedOption] = useState(MealOptions.Soups);
+const Menu = () => {
+  const [selectedOption, setSelectedOption] = useState(ProductType.Soup);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [orders, setOrders] = useState<OrderItem[]>([]);
+
+  const { data: products } = useGetProduct(selectedOption) as UseQueryResult<
+    ProductsResponse,
+    unknown
+  >;
+
+  if (!products) {
+    return <div>It will be just a second</div>;
+  }
 
   const handleOrderSubmission = () => {
     setIsCartOpen(false);
@@ -26,7 +33,7 @@ const Menu = ({ products }: PropTypes) => {
   };
 
   const addToCart = (id: string, quantity: number) => {
-    const product = products.find((p) => p.id === id);
+    const product = products?.find((p) => p.id === id);
     const isInCard = orders.some((o) => o.product.id === id);
 
     if (!isInCard) {

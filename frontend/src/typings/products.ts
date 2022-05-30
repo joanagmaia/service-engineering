@@ -1,9 +1,9 @@
 export enum ProductType {
-  Soup = "Soup",
-  Appetizer = "Appetizer",
-  Main = "Main",
-  Dessert = "Dessert",
-  Beverage = "Beverage",
+  Appetizer = "APPETIZER",
+  Beverage = "BEVERAGE",
+  Dessert = "DESSERT",
+  Main = "MAIN",
+  Soup = "SOUP",
 }
 
 export type Product = {
@@ -12,12 +12,7 @@ export type Product = {
   description: string;
   image: string;
   price: number;
-  product_type: ProductType;
+  type: ProductType;
 };
 
-export type ProductsResponse = {
-  limit: number;
-  offset: number;
-  count: number;
-  results: Product[];
-};
+export type ProductsResponse = Product[];

@@ -1,5 +1,5 @@
 import { UseQueryResult } from "react-query";
-import { useGetOrders } from "../../hooks";
+import { useGetOrders, usePostLogout } from "../../hooks";
 import { Order, OrdersResponse } from "../../typings/orders";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import OrdersList from "../../components/OrdersList";
@@ -10,10 +10,20 @@ import RoundButton, {
 import "./orders.css";
 import OrderDetail from "../../components/OrderDetail";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order>();
+  const navigate = useNavigate();
   const { data } = useGetOrders() as UseQueryResult<OrdersResponse, unknown>;
+  const { postLogout } = usePostLogout();
+
+  const handleLogout = () => {
+    postLogout().then(() => {
+      localStorage.removeItem("token");
+      navigate("/");
+    });
+  };
 
   return (
     <div className="page">
@@ -27,7 +37,7 @@ const Orders = () => {
             iconColor="#1c1a59"
             btnColor={RoundButtonColor.LightGrey}
             btnSize={RoundButtonSize.Big}
-            onClick={() => null}
+            onClick={handleLogout}
           />
         </div>
       </header>

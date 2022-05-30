@@ -4,5 +4,8 @@ export type Auth = {
 };
 
 export type AuthResponse = {
+  id: string;
+  username: string;
+  password: string;
   token: string;
 };

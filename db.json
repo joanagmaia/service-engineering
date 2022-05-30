@@ -6,7 +6,7 @@
       "description": "Made with high quality ingredients",
       "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
       "price": 5.05,
-      "is_vegan": false
+      "type": "APPETIZER"
     },
     {
       "id": "2",
@@ -14,94 +14,89 @@
       "description": "No animals were armed",
       "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
       "price": 10.02,
-      "is_vegan": true
+      "type": "BEVERAGE"
     }
   ],
-  "orders": {
-    "limit": 0,
-    "offset": 0,
-    "count": 0,
-    "results": [
-      {
-        "id": "1",
-        "total_price": 14.01,
-        "status": "Waiting",
-        "staff_name": "Kevin Smith",
-        "location_tag": "LT1",
-        "items": [
-          {
-            "quantity": 2,
-            "product": {
-              "id": "aa568247-d8c2-4869-af7e-182a431add74",
-              "title": "Double Cheeseburger",
-              "description": "Made with high quality ingredients",
-              "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
-              "price": 5.05,
-              "product_type": "Soup"
-            }
+  "orders": [
+    {
+      "id": "1",
+      "totalPrice": 14.01,
+      "status": "Waiting",
+      "staffName": "Kevin Smith",
+      "locationTag": "LT1",
+      "items": [
+        {
+          "quantity": 2,
+          "product": {
+            "id": "aa568247-d8c2-4869-af7e-182a431add74",
+            "title": "Double Cheeseburger",
+            "description": "Made with high quality ingredients",
+            "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+            "price": 5.05,
+            "type": "SOUP"
           }
-        ]
-      },
-      {
-        "id": "2",
-        "total_price": 5.02,
-        "status": "In Progress",
-        "staff_name": "Kevin Smith",
-        "location_tag": "LT1",
-        "items": [
-          {
-            "quantity": 1,
-            "product": {
-              "id": "aa568247-d8c2-4869-af7e-182a431add74",
-              "title": "Double Cheeseburger",
-              "description": "Made with high quality ingredients",
-              "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
-              "price": 5.05,
-              "product_type": "Soup"
-            }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "totalPrice": 5.02,
+      "status": "In Progress",
+      "staffName": "Kevin Smith",
+      "locationTag": "LT1",
+      "items": [
+        {
+          "quantity": 1,
+          "product": {
+            "id": "aa568247-d8c2-4869-af7e-182a431add74",
+            "title": "Double Cheeseburger",
+            "description": "Made with high quality ingredients",
+            "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+            "price": 5.05,
+            "type": "SOUP"
           }
-        ]
-      },
-      {
-        "id": "3",
-        "total_price": 5.02,
-        "status": "Finished",
-        "staff_name": "Kevin Smith",
-        "location_tag": "LT1",
-        "items": [
-          {
-            "quantity": 1,
-            "product": {
-              "id": "aa568247-d8c2-4869-af7e-182a431add74",
-              "title": "Double Cheeseburger",
-              "description": "Made with high quality ingredients",
-              "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
-              "price": 5.05,
-              "product_type": "Soup"
-            }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "totalPrice": 5.02,
+      "status": "Finished",
+      "staffName": "Kevin Smith",
+      "locationTag": "LT1",
+      "items": [
+        {
+          "quantity": 1,
+          "product": {
+            "id": "aa568247-d8c2-4869-af7e-182a431add74",
+            "title": "Double Cheeseburger",
+            "description": "Made with high quality ingredients",
+            "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+            "price": 5.05,
+            "type": "SOUP"
           }
-        ]
-      },
-      {
-        "id": "4",
-        "total_price": 5.02,
-        "status": "Completed",
-        "staff_name": "Kevin Smith",
-        "location_tag": "LT1",
-        "items": [
-          {
-            "quantity": 1,
-            "product": {
-              "id": "aa568247-d8c2-4869-af7e-182a431add74",
-              "title": "Double Cheeseburger",
-              "description": "Made with high quality ingredients",
-              "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
-              "price": 5.05,
-              "product_type": "Soup"
-            }
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "totalPrice": 5.02,
+      "status": "Completed",
+      "staffName": "Kevin Smith",
+      "locationTag": "LT1",
+      "items": [
+        {
+          "quantity": 1,
+          "product": {
+            "id": "aa568247-d8c2-4869-af7e-182a431add74",
+            "title": "Double Cheeseburger",
+            "description": "Made with high quality ingredients",
+            "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+            "price": 5.05,
+            "type": "SOUP"
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    }
+  ]
 }

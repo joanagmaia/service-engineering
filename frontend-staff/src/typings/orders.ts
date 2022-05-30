@@ -21,9 +21,4 @@ export type Order = {
   items: OrderItem[];
 };
 
-export type OrdersResponse = {
-  limit: number;
-  offset: number;
-  count: number;
-  results: Order[];
-};
+export type OrdersResponse = Order[];

@@ -5,48 +5,41 @@ import {
   faIceCream,
   faShrimp,
 } from "@fortawesome/free-solid-svg-icons";
+import { ProductType } from "../../typings/products";
 import Item from "./Item";
 import "./sidePanel.css";
-
-export enum MealOptions {
-  Soups = "soups",
-  Appetizers = "appetizers",
-  MainCourses = "main-courses",
-  Desserts = "desserts",
-  Beverages = "beverages",
-}
 
 const options = [
   {
     name: "Soups",
-    value: MealOptions.Soups,
+    value: ProductType.Soup,
     icon: faBowlFood,
   },
   {
     name: "Appetizers",
-    value: MealOptions.Appetizers,
+    value: ProductType.Appetizer,
     icon: faShrimp,
   },
   {
     name: "Main Courses",
-    value: MealOptions.MainCourses,
+    value: ProductType.Main,
     icon: faBurger,
   },
   {
     name: "Desserts",
-    value: MealOptions.Desserts,
+    value: ProductType.Dessert,
     icon: faIceCream,
   },
   {
     name: "Beverages",
-    value: MealOptions.Beverages,
+    value: ProductType.Beverage,
     icon: faBeer,
   },
 ];
 
 type PropTypes = {
-  selectedOption: MealOptions;
-  onSelectedOptionChange: (option: MealOptions) => void;
+  selectedOption: ProductType;
+  onSelectedOptionChange: (option: ProductType) => void;
 };
 
 const SidePanel = ({ selectedOption, onSelectedOptionChange }: PropTypes) => {
