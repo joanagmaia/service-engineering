@@ -7,13 +7,23 @@ export enum OrderStatus {
   Completed = "Completed",
 }
 
-export type Order = {
+export type OrderItem = {
   quantity: number;
   product: Product;
 };
 
-export type OrderRequest = {
-  total_price: number;
+export type Order = {
+  id: string;
+  total_price: string;
+  status: OrderStatus;
+  staff_name: string;
   location_tag: string;
-  items: Order[];
+  items: OrderItem[];
+};
+
+export type OrdersResponse = {
+  limit: number;
+  offset: number;
+  count: number;
+  results: Order[];
 };

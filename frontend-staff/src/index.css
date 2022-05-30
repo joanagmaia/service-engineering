@@ -11,6 +11,11 @@
   --dark-grey: #6c6c6c;
   --red: #e6351d;
   --green: #47bb83;
+  --waiting: rgb(185, 200, 250);
+  --inprogress: rgb(200, 162, 221);
+  --finished: orange;
+  --completed: rgb(104, 184, 135);
+  --selected: rgb(244, 247, 248);
 }
 
 body {
@@ -56,6 +61,13 @@ html,
   font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+
+.text {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
   font-size: 16px;
   color: var(--dark);
 }

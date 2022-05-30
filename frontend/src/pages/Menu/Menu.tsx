@@ -7,7 +7,7 @@ import RoundButton, {
 } from "../../components/RoundButton";
 import ShoppingCart from "../../components/ShoppingCart";
 import SidePanel, { MealOptions } from "../../components/SidePanel";
-import { Order } from "../../typings/orders";
+import { OrderItem } from "../../typings/orders";
 import { Product } from "../../typings/products";
 import "./menu.css";
 
@@ -18,7 +18,7 @@ type PropTypes = {
 const Menu = ({ products }: PropTypes) => {
   const [selectedOption, setSelectedOption] = useState(MealOptions.Soups);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderItem[]>([]);
 
   const handleOrderSubmission = () => {
     setIsCartOpen(false);
@@ -35,11 +35,13 @@ const Menu = ({ products }: PropTypes) => {
         {
           quantity,
           product,
-        } as Order,
+        } as OrderItem,
       ]);
     } else {
       setOrders((prev) => {
-        const index = prev.findIndex((o: Order) => quantity + o.quantity === 0);
+        const index = prev.findIndex(
+          (o: OrderItem) => quantity + o.quantity === 0
+        );
 
         if (index !== -1) {
           prev.splice(index, 1);

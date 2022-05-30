@@ -1,0 +1,40 @@
+.roundBtn {
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.roundBtn.dark-blue {
+  background-color: var(--dark-blue);
+}
+
+.roundBtn.dark-blue:hover {
+  background-color: var(--blue);
+}
+
+.roundBtn.light-grey {
+  background-color: var(--light-grey);
+}
+
+.roundBtn.light-grey:hover {
+  background-color: var(--hover-grey);
+}
+
+.roundBtn.small {
+  width: 24px;
+  height: 24px;
+}
+
+.roundBtn.medium {
+  width: 56px;
+  height: 56px;
+}
+
+.roundBtn.big {
+  width: 64px;
+  height: 64px;
+}

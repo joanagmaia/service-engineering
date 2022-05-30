@@ -1,5 +1,7 @@
+import SignIn from "../../pages/SignIn";
+
 const App = () => {
-  return <div className="app">Hello world</div>;
+  return <SignIn />;
 };
 
 export default App;

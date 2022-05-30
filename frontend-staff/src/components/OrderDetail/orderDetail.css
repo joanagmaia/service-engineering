@@ -1,0 +1,30 @@
+.orderDetail {
+  flex: 1;
+  background-color: var(--selected);
+}
+
+.orderDetail > header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.orderDetailItems {
+  padding: 20px;
+}
+
+.orderDetailItems p,
+.orderDetailItems h3 {
+  margin: 0;
+}
+
+.orderDetailItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderDetailItemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

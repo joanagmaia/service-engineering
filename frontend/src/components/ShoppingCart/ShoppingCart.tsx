@@ -1,7 +1,7 @@
 import { faCamera, faSearchLocation } from "@fortawesome/free-solid-svg-icons";
 import { useMemo, useState } from "react";
-import usePostOrder from "../../hooks/usePostOrder";
-import { Order } from "../../typings/orders";
+import { usePostOrder } from "../../hooks";
+import { OrderItem } from "../../typings/orders";
 import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
 import Camera from "../Camera";
 import CustomerAction from "../CustomerAction";
@@ -11,7 +11,7 @@ import MealOrder from "../MealOrder";
 import "./shoppingCart.css";
 
 type PropTypes = {
-  orders: Order[];
+  orders: OrderItem[];
   onCloseClick: () => void;
   handleQuantity: (id: string, quantity: number) => void;
   handleOrderSubmission: () => void;

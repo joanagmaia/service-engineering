@@ -2,7 +2,7 @@ import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useRef } from "react";
 import RoundButton, { RoundButtonColor, RoundButtonSize } from "../RoundButton";
 import Webcam from "react-webcam";
-import usePostPhotos from "../../hooks/usePostPhotos";
+import { usePostPhotos } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type PropTypes = {

@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.actionBtns {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pageContent {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
