@@ -2,7 +2,7 @@
   "products": [
     {
       "id": "1",
-      "title": "Double Cheeseburger",
+      "title": "Product 1",
       "description": "Made with high quality ingredients",
       "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
       "price": 5.05,
@@ -10,11 +10,91 @@
     },
     {
       "id": "2",
-      "title": "Vegan Whooper",
+      "title": "Product 2",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "type": "APPETIZER"
+    },
+    {
+      "id": "3",
+      "title": "Product 3",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "type": "BEVERAGE"
+    },
+    {
+      "id": "4",
+      "title": "Product 4",
       "description": "No animals were armed",
       "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
       "price": 10.02,
       "type": "BEVERAGE"
+    },
+    {
+      "id": "5",
+      "title": "Product 5",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "type": "DESSERT"
+    },
+    {
+      "id": "6",
+      "title": "Product 6",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "type": "DESSERT"
+    },
+    {
+      "id": "7",
+      "title": "Product 7",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "type": "MAIN"
+    },
+    {
+      "id": "8",
+      "title": "Product 8",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "type": "MAIN"
+    },
+    {
+      "id": "9",
+      "title": "Product 9",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "type": "SOUP"
+    },
+    {
+      "id": "10",
+      "title": "Product 10",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "type": "SOUP"
+    },
+    {
+      "id": "11",
+      "title": "Product 11",
+      "description": "Made with high quality ingredients",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 5.05,
+      "type": "APPETIZER"
+    },
+    {
+      "id": "12",
+      "title": "Product 12",
+      "description": "No animals were armed",
+      "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1",
+      "price": 10.02,
+      "type": "APPETIZER"
     }
   ],
   "orders": [

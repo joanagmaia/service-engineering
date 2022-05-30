@@ -7,14 +7,17 @@ type PropTypes = {
 
 const LocationTag = ({ onChange }: PropTypes) => {
   return (
-    <input
-      className="inputLocationTag"
-      type="text"
-      id="locationTag"
-      name="locationTag"
-      placeholder="Insert your location tag number"
-      onChange={onChange}
-    />
+    <>
+      <h3 className="heading">Location Tag Identifier</h3>
+      <input
+        className="inputLocationTag"
+        type="text"
+        id="locationTag"
+        name="locationTag"
+        placeholder="Insert your location tag number"
+        onChange={onChange}
+      />
+    </>
   );
 };
 

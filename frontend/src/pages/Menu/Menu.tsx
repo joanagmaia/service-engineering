@@ -1,4 +1,4 @@
-import { faCamera, faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { memo, useState } from "react";
 import { UseQueryResult } from "react-query";
 import MealCard from "../../components/MealCard";
@@ -27,7 +27,8 @@ const Menu = () => {
     return <div>It will be just a second</div>;
   }
 
-  const handleOrderSubmission = () => {
+  const handleOnCloseClick = () => {
+    setIsCartOpen(false);
     setIsCartOpen(false);
     setOrders([]);
   };
@@ -73,14 +74,6 @@ const Menu = () => {
         <h3 className="heading">Group 12 Menu</h3>
         <div className="actionBtns">
           <RoundButton
-            icon={faCamera}
-            iconSize="2x"
-            iconColor="#1c1a59"
-            btnColor={RoundButtonColor.LightGrey}
-            btnSize={RoundButtonSize.Big}
-            onClick={() => null}
-          />
-          <RoundButton
             icon={faShoppingBasket}
             iconSize="2x"
             iconColor="#1c1a59"
@@ -118,9 +111,8 @@ const Menu = () => {
       {isCartOpen && (
         <ShoppingCart
           orders={orders}
-          onCloseClick={() => setIsCartOpen(false)}
+          onCloseClick={handleOnCloseClick}
           handleQuantity={addToCart}
-          handleOrderSubmission={handleOrderSubmission}
         />
       )}
     </div>

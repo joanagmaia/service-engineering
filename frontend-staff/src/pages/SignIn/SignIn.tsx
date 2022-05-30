@@ -23,7 +23,14 @@ const SignIn = () => {
         username,
         password,
       }).then((response: AuthResponse) => {
-        localStorage.setItem("token", response.token);
+        const { token, username } = response;
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+
+        if (username) {
+          localStorage.setItem("username", username);
+        }
         navigate("/orders");
       });
     }

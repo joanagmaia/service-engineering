@@ -10,11 +10,12 @@ export enum CustomerActionSize {
 }
 
 type PropTypes = {
-  size: CustomerActionSize;
-  icon: IconDefinition;
-  buttonText: string;
+  size?: CustomerActionSize;
+  icon?: IconDefinition;
+  buttonText?: string;
   description?: string;
-  disabled: boolean;
+  disabled?: boolean;
+  withoutAction?: boolean;
   children?: React.ReactNode;
 };
 
@@ -24,6 +25,7 @@ const CustomerAction = ({
   buttonText,
   description,
   disabled,
+  withoutAction,
   children,
 }: PropTypes) => {
   const [isActionVisible, setIsActionVisible] = useState(false);
@@ -35,19 +37,21 @@ const CustomerAction = ({
   return (
     <div className={`customerActionContainer ${size}`}>
       <div className="customerActionContent">
-        {isActionVisible ? (
+        {isActionVisible || withoutAction ? (
           children
         ) : (
           <>
-            <FontAwesomeIcon color="#E1E1E1" size="5x" icon={icon} />
-            <Button
-              text={buttonText}
-              btnSize={ButtonSize.Medium}
-              btnColor={ButtonColor.DarkBlue}
-              onClick={handleCustomerActionClick}
-              shape={ButtonShape.Compact}
-              disabled={disabled}
-            />
+            {icon && <FontAwesomeIcon color="#E1E1E1" size="5x" icon={icon} />}
+            {buttonText && (
+              <Button
+                text={buttonText}
+                btnSize={ButtonSize.Medium}
+                btnColor={ButtonColor.DarkBlue}
+                onClick={handleCustomerActionClick}
+                shape={ButtonShape.Compact}
+                disabled={disabled}
+              />
+            )}
             {description && <span className="description">{description}</span>}
           </>
         )}
@@ -57,6 +61,7 @@ const CustomerAction = ({
 };
 
 CustomerAction.defaultProps = {
+  showChildren: false,
   description: null,
 };
 

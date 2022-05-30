@@ -1,4 +1,8 @@
-import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCamera,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useRef } from "react";
 import RoundButton, { RoundButtonColor, RoundButtonSize } from "../RoundButton";
 import Webcam from "react-webcam";
@@ -7,8 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type PropTypes = {
   image: string;
-  wasSuccessful: boolean;
-  setWasSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  orderId?: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -18,14 +21,9 @@ const videoConstraints = {
   facingMode: "user",
 };
 
-const Camera = ({
-  image,
-  wasSuccessful,
-  setImage,
-  setWasSuccessful,
-}: PropTypes) => {
+const Camera = ({ image, orderId, setImage }: PropTypes) => {
   const webcamRef = useRef<Webcam>(null);
-  const { postPhotos } = usePostPhotos();
+  const { isSuccess, isError, isFetched } = usePostPhotos(image, orderId);
 
   const capture = useCallback(() => {
     if (webcamRef.current) {
@@ -33,18 +31,30 @@ const Camera = ({
 
       if (screenshot) {
         setImage(screenshot);
-        postPhotos(screenshot)
-          .then(() => setWasSuccessful(true))
-          .catch(() => setImage(""));
       }
     }
-  }, [postPhotos, setImage, setWasSuccessful]);
+  }, [setImage]);
 
-  if (wasSuccessful) {
+  if (isSuccess && isFetched) {
     return (
       <div>
         <FontAwesomeIcon color="#47BB83" size="5x" icon={faCheckCircle} />
-        <h3 className="heading">Face recognition was successfull</h3>
+        <h3 className="heading">
+          Face recognition was successfull. Your order will be prepared soon
+        </h3>
+      </div>
+    );
+  }
+
+  if (isError && isFetched) {
+    setImage("");
+
+    return (
+      <div>
+        <FontAwesomeIcon color="#C83D3D" size="5x" icon={faTimesCircle} />
+        <h3 className="heading">
+          Face recognition was not successfull. Please contact customer support.
+        </h3>
       </div>
     );
   }

@@ -1,3 +1,5 @@
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./button.css";
 
 export enum ButtonColor {
@@ -22,6 +24,7 @@ type PropTypes = {
   btnColor: ButtonColor;
   shape: ButtonShape;
   disabled?: boolean;
+  icon?: IconDefinition | null;
   onClick: () => void;
 };
 
@@ -31,6 +34,7 @@ const Button = ({
   btnSize,
   btnColor,
   disabled,
+  icon,
   onClick,
 }: PropTypes) => {
   return (
@@ -39,7 +43,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <span>{text}</span>
+      {icon ? <FontAwesomeIcon icon={icon} /> : <span>{text}</span>}
     </button>
   );
 };

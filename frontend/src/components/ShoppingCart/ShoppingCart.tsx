@@ -1,7 +1,7 @@
-import { faCamera, faSearchLocation } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useMemo, useState } from "react";
 import { usePostOrder } from "../../hooks";
-import { OrderItem } from "../../typings/orders";
+import { OrderItem, OrderResponse } from "../../typings/orders";
 import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
 import Camera from "../Camera";
 import CustomerAction from "../CustomerAction";
@@ -14,18 +14,11 @@ type PropTypes = {
   orders: OrderItem[];
   onCloseClick: () => void;
   handleQuantity: (id: string, quantity: number) => void;
-  handleOrderSubmission: () => void;
 };
 
-const ShoppingCart = ({
-  orders,
-  onCloseClick,
-  handleQuantity,
-  handleOrderSubmission,
-}: PropTypes) => {
+const ShoppingCart = ({ orders, onCloseClick, handleQuantity }: PropTypes) => {
+  const [orderId, setOrderId] = useState<string>();
   const [image, setImage] = useState<string>("");
-  const [wasFacialRecognitionSuccessful, setWasFacialRecognitionSuccessful] =
-    useState(false);
   const [locationTag, setLocationTag] = useState<string>();
   const { postOrder } = usePostOrder();
 
@@ -34,7 +27,7 @@ const ShoppingCart = ({
     [orders]
   );
   const isCartEmpty = !orders.length;
-  const isOrderValid = !!image && !!locationTag && !isCartEmpty;
+  const isOrderValid = !!locationTag && !isCartEmpty;
 
   const submitOrder = () => {
     if (isOrderValid) {
@@ -45,8 +38,8 @@ const ShoppingCart = ({
         totalPrice,
         locationTag,
         items,
-      }).then(() => {
-        handleOrderSubmission();
+      }).then((response: OrderResponse) => {
+        setOrderId(response.id);
       });
     }
   };
@@ -83,40 +76,37 @@ const ShoppingCart = ({
               <span className="red">$ </span>
               {totalPrice}
             </span>
-            {isOrderValid && (
-              <Button
-                text="Place order"
-                onClick={submitOrder}
-                shape={ButtonShape.FullWidth}
-                btnSize={ButtonSize.Medium}
-                btnColor={ButtonColor.Green}
-              />
-            )}
+            <Button
+              text={"Place order"}
+              icon={orderId ? faCheck : null}
+              onClick={submitOrder}
+              shape={ButtonShape.FullWidth}
+              btnSize={ButtonSize.Medium}
+              btnColor={ButtonColor.Green}
+              disabled={!isOrderValid || !!orderId}
+            />
           </div>
         </div>
         <div className="customerActions">
-          <CustomerAction
-            size={CustomerActionSize.Big}
-            icon={faCamera}
-            buttonText="Pay with Face Recognition"
-            description="Press the button to take a picture"
-            disabled={isCartEmpty}
-          >
-            <Camera
-              wasSuccessful={wasFacialRecognitionSuccessful}
-              setWasSuccessful={setWasFacialRecognitionSuccessful}
-              image={image}
-              setImage={setImage}
-            />
-          </CustomerAction>
-          <CustomerAction
-            icon={faSearchLocation}
-            size={CustomerActionSize.Regular}
-            buttonText="Submit location tag"
-            disabled={isCartEmpty}
-          >
-            <LocationTag onChange={(e) => setLocationTag(e.target.value)} />
-          </CustomerAction>
+          {!orderId && (
+            <CustomerAction
+              size={CustomerActionSize.Regular}
+              withoutAction={true}
+            >
+              <LocationTag onChange={(e) => setLocationTag(e.target.value)} />
+            </CustomerAction>
+          )}
+          {orderId && (
+            <CustomerAction
+              size={CustomerActionSize.Big}
+              icon={faCamera}
+              buttonText="Pay with Face Recognition"
+              description="Press the button to take a picture"
+              disabled={isCartEmpty || !orderId}
+            >
+              <Camera orderId={orderId} image={image} setImage={setImage} />
+            </CustomerAction>
+          )}
         </div>
       </div>
     </div>

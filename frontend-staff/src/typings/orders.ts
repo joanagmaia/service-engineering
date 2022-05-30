@@ -14,10 +14,10 @@ export type OrderItem = {
 
 export type Order = {
   id: string;
-  total_price: string;
+  totalPrice: string;
   status: OrderStatus;
-  staff_name: string;
-  location_tag: string;
+  staffName: string;
+  locationTag: string;
   items: OrderItem[];
 };
 

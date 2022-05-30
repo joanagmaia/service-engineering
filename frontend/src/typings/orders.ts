@@ -27,3 +27,12 @@ export type OrderRequest = {
   locationTag: string;
   items: OrderItemRequest[];
 };
+
+export type OrderResponse = {
+  id: string;
+  totalPrice: number;
+  status: OrderStatus;
+  staffName: string;
+  locationTag: string;
+  items: OrderItemRequest[];
+};

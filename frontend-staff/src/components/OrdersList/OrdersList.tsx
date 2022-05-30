@@ -13,7 +13,6 @@ const OrdersList = ({ orders, setSelectedOrder, selectedId }: PropTypes) => {
       <div className="tableHeaders">
         <p className="text-bold">Order Id</p>
         <p className="text-bold">Location Tag</p>
-        <p className="text-bold">Time</p>
         <p className="text-bold">Kitchen Staff</p>
         <p className="text-bold">Status</p>
       </div>
@@ -25,10 +24,8 @@ const OrdersList = ({ orders, setSelectedOrder, selectedId }: PropTypes) => {
             onClick={() => setSelectedOrder(order)}
           >
             <p className="text">#{order.id}</p>
-            <p className="text">{order.location_tag}</p>
-            {/* TBD: Order timestamp */}
-            <p className="text">00:00</p>
-            <p className="text">{order.staff_name}</p>
+            <p className="text">{order.locationTag}</p>
+            <p className="text">{order.staffName}</p>
             <p>
               <span
                 className={`text-bold status ${order.status

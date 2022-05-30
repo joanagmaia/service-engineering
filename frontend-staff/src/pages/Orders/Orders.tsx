@@ -18,9 +18,12 @@ const Orders = () => {
   const { data } = useGetOrders() as UseQueryResult<OrdersResponse, unknown>;
   const { postLogout } = usePostLogout();
 
+  const username = localStorage.getItem("username") || "";
+
   const handleLogout = () => {
     postLogout().then(() => {
       localStorage.removeItem("token");
+      localStorage.removeItem("username");
       navigate("/");
     });
   };
@@ -30,7 +33,7 @@ const Orders = () => {
       <header>
         <h3 className="heading">Group 12 Orders</h3>
         <div className="actionBtns">
-          <p className="description">John Doe</p>
+          <p className="description">{username}</p>
           <RoundButton
             icon={faSignOut}
             iconSize="2x"

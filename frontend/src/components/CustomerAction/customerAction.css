@@ -21,3 +21,7 @@
   text-align: center;
   align-items: center;
 }
+
+.customerActionContent h3 {
+  padding: 0 2rem;
+}
