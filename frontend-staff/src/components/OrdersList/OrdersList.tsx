@@ -1,9 +1,11 @@
-import { Order, OrdersResponse } from "../../typings/orders";
+import { OrderResponse } from "../../typings/orders";
 import "./ordersList.css";
 
 type PropTypes = {
-  orders: OrdersResponse;
-  setSelectedOrder: React.Dispatch<React.SetStateAction<Order | undefined>>;
+  orders: OrderResponse[];
+  setSelectedOrder: React.Dispatch<
+    React.SetStateAction<OrderResponse | undefined>
+  >;
   selectedId?: string;
 };
 

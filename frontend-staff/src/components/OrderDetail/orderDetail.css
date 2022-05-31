@@ -1,6 +1,9 @@
 .orderDetail {
-  flex: 1;
+  flex: 1 1;
+  display: flex;
   background-color: var(--selected);
+  overflow: auto;
+  flex-direction: column;
 }
 
 .orderDetail > header {
@@ -11,6 +14,11 @@
 
 .orderDetailItems {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .orderDetailItems p,
@@ -27,4 +35,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.completeBtn {
+  padding: 20px;
 }

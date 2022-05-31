@@ -1,10 +1,10 @@
 import { Product } from "./products";
 
 export enum OrderStatus {
-  Waiting = "Waiting",
-  Progress = "In Progress",
-  Finished = "Finished",
-  Completed = "Completed",
+  Waiting = "WAITING",
+  InProgress = "IN_PROGRESS",
+  Prepared = "PREPARED",
+  Delivered = "DELIVERED",
 }
 
 export type OrderItem = {
@@ -12,13 +12,32 @@ export type OrderItem = {
   product: Product;
 };
 
+export type OrderItemRequest = {
+  [key: string]: number;
+};
+
+export type OrderRequest = {
+  totalPrice: number;
+  locationTag: string;
+  items: OrderItemRequest[];
+};
+
 export type Order = {
   id: string;
-  totalPrice: string;
+  totalPrice: number;
   status: OrderStatus;
   staffName: string;
   locationTag: string;
   items: OrderItem[];
+};
+
+export type OrderResponse = {
+  id: string;
+  totalPrice: number;
+  status: OrderStatus;
+  staffName: string;
+  locationTag: string;
+  items: OrderItemRequest[];
 };
 
 export type OrdersResponse = Order[];
