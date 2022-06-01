@@ -88,6 +88,7 @@ const ShoppingCart = ({ orders, onCloseClick, handleQuantity }: PropTypes) => {
               key={product.id}
               id={product.id}
               title={product.title}
+              imageSrc={product.image}
               description={product.description}
               price={product.price}
               quantity={quantity}

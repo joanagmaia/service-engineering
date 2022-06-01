@@ -33,6 +33,7 @@ const Products = ({ products, addToCart }: PropTypes) => {
           id={d.id}
           title={d.title}
           description={d.description}
+          imageSrc={d.image}
           price={d.price}
           onAddToCard={addToCart}
         />

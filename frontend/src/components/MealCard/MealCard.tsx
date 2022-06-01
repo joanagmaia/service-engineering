@@ -11,6 +11,7 @@ type PropTypes = {
   title: string;
   description: string;
   price: number;
+  imageSrc: string;
   onAddToCard: (id: string, quantity: number) => void;
 };
 
@@ -19,6 +20,7 @@ const MealCard = ({
   title,
   description,
   price,
+  imageSrc,
   onAddToCard,
 }: PropTypes) => {
   const [quantity, setQuantity] = useState(1);
@@ -27,7 +29,11 @@ const MealCard = ({
     <Card>
       <div className="cardContent">
         <Image
-          src="https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1"
+          src={
+            !!imageSrc?.length
+              ? imageSrc
+              : "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1"
+          }
           alt="mealCard"
           type={ImgType.SmallRectangle}
         />

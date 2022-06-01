@@ -9,6 +9,7 @@ type PropTypes = {
   description: string;
   price: number;
   quantity: number;
+  imageSrc: string;
   handleQuantity: (id: string, quantity: number) => void;
 };
 
@@ -17,6 +18,7 @@ const MealOrder = ({
   title,
   description,
   price,
+  imageSrc,
   quantity,
   handleQuantity,
 }: PropTypes) => {
@@ -24,7 +26,11 @@ const MealOrder = ({
     <div className="mealOrder">
       <div className="mealOrderImage">
         <Image
-          src="https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1"
+          src={
+            !!imageSrc?.length
+              ? imageSrc
+              : "https://www.eatthis.com/wp-content/uploads/sites/4/2021/05/healthy-foods.jpg?quality=82&strip=1"
+          }
           alt="mealCard"
           type={ImgType.SmallSquare}
         />

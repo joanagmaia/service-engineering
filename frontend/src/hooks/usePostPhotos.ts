@@ -3,49 +3,34 @@ import { toast } from "react-toastify";
 
 const url = `${process.env.REACT_APP_API_URL}/orders`;
 
-const DataURIToBlob = (dataURI: string) => {
-  const splitDataURI = dataURI.split(",");
-  const byteString =
-    splitDataURI[0].indexOf("base64") >= 0
-      ? atob(splitDataURI[1])
-      : decodeURI(splitDataURI[1]);
-  const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
-
-  const ia = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
-
-  return new Blob([ia], { type: mimeString });
-};
-
 const usePostPhotos = (image: string, id?: string) =>
   useQuery(
     ["photos", image],
     async () => {
-      const formData = new FormData();
+      var data = new FormData();
+      data.append("filename", `${id}.png`);
+      data.append("mimetype", "image/png");
+      data.append("file", new Blob([image], { type: "image/png" }));
 
-      formData.append("blob", DataURIToBlob(image));
-      formData.append("filename", `${id}.png`);
-      formData.append("mimetype", "image/png");
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
 
-      return fetch(`${url}/${id}/photos`, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => data)
-        .catch(() => {
-          toast("Something went wrong", {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            type: "error",
-            theme: "colored",
-          });
+      xhr.open("POST", `${url}/${id}/photo`);
+      xhr.onerror = () => {
+        toast("Something went wrong", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          type: "error",
+          theme: "colored",
         });
+      };
+      xhr.setRequestHeader("Authorization", "Bearer Bearer W2v8aEuW4u");
+      xhr.send(data);
     },
     {
       enabled: !!image && !!id,

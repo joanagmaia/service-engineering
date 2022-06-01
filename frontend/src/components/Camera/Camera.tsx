@@ -66,7 +66,7 @@ const Camera = ({ image, orderId, setImage }: PropTypes) => {
           audio={false}
           height={300}
           ref={webcamRef}
-          screenshotFormat="image/jpeg"
+          screenshotFormat="image/png"
           width={500}
           videoConstraints={videoConstraints}
         />
