@@ -8,6 +8,7 @@ import CustomerAction from "../CustomerAction";
 import { CustomerActionSize } from "../CustomerAction/CustomerAction";
 import LocationTag from "../LocationTag";
 import MealOrder from "../MealOrder";
+import { toast } from "react-toastify";
 import "./shoppingCart.css";
 
 type PropTypes = {
@@ -20,7 +21,7 @@ const ShoppingCart = ({ orders, onCloseClick, handleQuantity }: PropTypes) => {
   const [orderId, setOrderId] = useState<string>();
   const [image, setImage] = useState<string>("");
   const [locationTag, setLocationTag] = useState<string>();
-  const { postOrder } = usePostOrder();
+  const { isLoading, postOrder } = usePostOrder();
 
   const totalPrice = useMemo(
     () => orders.reduce((a, b) => +a + +b.quantity * b.product.price, 0),
@@ -34,13 +35,36 @@ const ShoppingCart = ({ orders, onCloseClick, handleQuantity }: PropTypes) => {
       const items = orders.map((o) => ({
         [o.product.id]: o.quantity,
       }));
+
+      const initialValue = {};
+      const mappedItems = items.reduce((obj, item) => {
+        return {
+          ...obj,
+          [Object.keys(item)[0]]: item[Object.keys(item)[0]],
+        };
+      }, initialValue);
+
       postOrder({
         totalPrice,
         locationTag,
-        items,
-      }).then((response: OrderResponse) => {
-        setOrderId(response.id);
-      });
+        items: mappedItems,
+      })
+        .then((response: OrderResponse) => {
+          setOrderId(response.id);
+        })
+        .catch(() => {
+          toast("Something went wrong", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "error",
+            theme: "colored",
+          });
+        });
     }
   };
 
@@ -83,6 +107,7 @@ const ShoppingCart = ({ orders, onCloseClick, handleQuantity }: PropTypes) => {
               shape={ButtonShape.FullWidth}
               btnSize={ButtonSize.Medium}
               btnColor={ButtonColor.Green}
+              isLoading={isLoading}
               disabled={!isOrderValid || !!orderId}
             />
           </div>

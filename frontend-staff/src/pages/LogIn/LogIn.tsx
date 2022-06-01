@@ -5,14 +5,15 @@ import Button, {
   ButtonSize,
 } from "../../components/Button";
 import { usePostLogin } from "../../hooks";
-import "./signIn.css";
+import "./logIn.css";
 import { useNavigate } from "react-router-dom";
 import { AuthResponse } from "../../typings/auth";
+import { toast } from "react-toastify";
 
-const SignIn = () => {
+const LogIn = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const { postLogin } = usePostLogin();
+  const { postLogin, isLoading } = usePostLogin();
   const navigate = useNavigate();
 
   const isFormValid = !!username && !!password;
@@ -22,17 +23,31 @@ const SignIn = () => {
       postLogin({
         username,
         password,
-      }).then((response: AuthResponse) => {
-        const { token, username } = response;
-        if (token) {
-          localStorage.setItem("token", token);
-        }
+      })
+        .then((response: AuthResponse) => {
+          const { token, username } = response;
+          if (token) {
+            localStorage.setItem("token", token);
+          }
 
-        if (username) {
-          localStorage.setItem("username", username);
-        }
-        navigate("/orders");
-      });
+          if (username) {
+            localStorage.setItem("username", username);
+          }
+          navigate("/orders");
+        })
+        .catch(() => {
+          toast("Something went wrong", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "error",
+            theme: "colored",
+          });
+        });
     }
   }, [isFormValid, navigate, password, postLogin, username]);
 
@@ -66,7 +81,8 @@ const SignIn = () => {
         </div>
         <Button
           disabled={!isFormValid}
-          text="Sign In"
+          text="Log In"
+          isLoading={isLoading}
           onClick={handleOnSubmit}
           shape={ButtonShape.FullWidth}
           btnColor={ButtonColor.DarkBlue}
@@ -77,4 +93,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default LogIn;

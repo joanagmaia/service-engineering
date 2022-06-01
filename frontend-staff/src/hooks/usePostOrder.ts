@@ -1,14 +1,18 @@
-import { useQuery } from "react-query";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 const url = `${process.env.REACT_APP_API_URL}/orders`;
 
-const useGetOrders = () =>
-  useQuery("orders", () =>
-    fetch(url, {
-      method: "GET",
+const usePostOrder = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const postOrder = async (orderId: string) => {
+    setIsLoading(true);
+    return fetch(`${url}/${orderId}/prepare`, {
+      method: "POST",
       headers: {
         authorization: `${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
@@ -26,6 +30,10 @@ const useGetOrders = () =>
           theme: "colored",
         });
       })
-  );
+      .finally(() => setIsLoading(false));
+  };
 
-export default useGetOrders;
+  return { postOrder, isLoading };
+};
+
+export default usePostOrder;

@@ -23,7 +23,7 @@ const videoConstraints = {
 
 const Camera = ({ image, orderId, setImage }: PropTypes) => {
   const webcamRef = useRef<Webcam>(null);
-  const { isSuccess, isError, isFetched } = usePostPhotos(image, orderId);
+  const { isError, isFetched } = usePostPhotos(image, orderId);
 
   const capture = useCallback(() => {
     if (webcamRef.current) {
@@ -35,7 +35,7 @@ const Camera = ({ image, orderId, setImage }: PropTypes) => {
     }
   }, [setImage]);
 
-  if (isSuccess && isFetched) {
+  if (!isError && isFetched) {
     return (
       <div>
         <FontAwesomeIcon color="#47BB83" size="5x" icon={faCheckCircle} />
@@ -71,7 +71,7 @@ const Camera = ({ image, orderId, setImage }: PropTypes) => {
           videoConstraints={videoConstraints}
         />
       ) : (
-        <img src={image} alt="facialRecognition" />
+        <img id="fa" src={image} alt="facialRecognition" />
       )}
       <RoundButton
         icon={faCamera}

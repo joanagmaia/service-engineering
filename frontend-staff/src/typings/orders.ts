@@ -7,6 +7,13 @@ export enum OrderStatus {
   Delivered = "DELIVERED",
 }
 
+export const orderStatus = {
+  [OrderStatus.Waiting]: "Waiting",
+  [OrderStatus.InProgress]: "In Progress",
+  [OrderStatus.Prepared]: "Prepared",
+  [OrderStatus.Delivered]: "Delivered",
+};
+
 export type OrderItem = {
   quantity: number;
   product: Product;
@@ -19,7 +26,7 @@ export type OrderItemRequest = {
 export type OrderRequest = {
   totalPrice: number;
   locationTag: string;
-  items: OrderItemRequest[];
+  items: OrderItemRequest;
 };
 
 export type Order = {
@@ -37,7 +44,7 @@ export type OrderResponse = {
   status: OrderStatus;
   staffName: string;
   locationTag: string;
-  items: OrderItemRequest[];
+  items: OrderItemRequest;
 };
 
 export type OrdersResponse = Order[];

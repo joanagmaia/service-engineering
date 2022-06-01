@@ -1,4 +1,4 @@
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./button.css";
 
@@ -24,6 +24,7 @@ type PropTypes = {
   btnColor: ButtonColor;
   shape: ButtonShape;
   disabled?: boolean;
+  isLoading?: boolean;
   icon?: IconDefinition | null;
   onClick: () => void;
 };
@@ -33,17 +34,30 @@ const Button = ({
   shape,
   btnSize,
   btnColor,
+  isLoading,
   disabled,
   icon,
   onClick,
 }: PropTypes) => {
+  const buttonContent = () => {
+    if (!!icon) {
+      return <FontAwesomeIcon icon={icon} />;
+    }
+
+    if (isLoading) {
+      return <FontAwesomeIcon icon={faSpinner} spin />;
+    }
+
+    return <span>{text}</span>;
+  };
+
   return (
     <button
       className={`btn ${btnSize} ${btnColor} ${shape}`}
       onClick={onClick}
       disabled={disabled}
     >
-      {icon ? <FontAwesomeIcon icon={icon} /> : <span>{text}</span>}
+      {buttonContent()}
     </button>
   );
 };

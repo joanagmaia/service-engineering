@@ -25,7 +25,7 @@ export type OrderItemRequest = {
 export type OrderRequest = {
   totalPrice: number;
   locationTag: string;
-  items: OrderItemRequest[];
+  items: OrderItemRequest;
 };
 
 export type OrderResponse = {
@@ -34,5 +34,5 @@ export type OrderResponse = {
   status: OrderStatus;
   staffName: string;
   locationTag: string;
-  items: OrderItemRequest[];
+  items: OrderItemRequest;
 };

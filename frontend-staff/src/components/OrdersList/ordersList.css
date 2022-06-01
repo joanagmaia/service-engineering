@@ -2,6 +2,7 @@
   width: 100%;
   border-top: 1px solid var(--hover-grey);
   flex: 2;
+  overflow: auto;
 }
 
 .tableHeaders {
@@ -23,12 +24,12 @@
   align-items: center;
 }
 
-.tableRow:hover {
+.tableRow.clickable:hover {
   background-color: var(--grey);
   cursor: pointer;
 }
 
-.tableRow.selected:not(:hover) {
+.tableRow.clickable.selected:not(:hover) {
   background-color: var(--selected);
   cursor: pointer;
 }
@@ -52,6 +53,6 @@
   background-color: var(--finished);
 }
 
-.status.completed {
+.status.delivered {
   background-color: var(--completed);
 }

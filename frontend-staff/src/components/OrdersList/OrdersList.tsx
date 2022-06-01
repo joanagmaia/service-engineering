@@ -1,4 +1,4 @@
-import { OrderResponse } from "../../typings/orders";
+import { OrderResponse, orderStatus, OrderStatus } from "../../typings/orders";
 import "./ordersList.css";
 
 type PropTypes = {
@@ -22,8 +22,12 @@ const OrdersList = ({ orders, setSelectedOrder, selectedId }: PropTypes) => {
         {orders?.map((order) => (
           <div
             key={order.id}
-            className={`tableRow ${selectedId === order.id ? "selected" : ""}`}
-            onClick={() => setSelectedOrder(order)}
+            className={`tableRow ${selectedId === order.id ? "selected" : ""} ${
+              order.status !== OrderStatus.Delivered ? "clickable" : ""
+            }`}
+            onClick={() =>
+              order.status !== OrderStatus.Delivered && setSelectedOrder(order)
+            }
           >
             <p className="text">#{order.id}</p>
             <p className="text">{order.locationTag}</p>
@@ -31,10 +35,10 @@ const OrdersList = ({ orders, setSelectedOrder, selectedId }: PropTypes) => {
             <p>
               <span
                 className={`text-bold status ${order.status
-                  .replace(" ", "")
+                  .replace("_", "")
                   .toLowerCase()}`}
               >
-                {order.status}
+                {orderStatus[order.status]}
               </span>
             </p>
           </div>

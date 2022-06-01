@@ -1,7 +1,6 @@
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { memo, useState } from "react";
 import { UseQueryResult } from "react-query";
-import MealCard from "../../components/MealCard";
 import RoundButton, {
   RoundButtonColor,
   RoundButtonSize,
@@ -10,8 +9,9 @@ import ShoppingCart from "../../components/ShoppingCart";
 import SidePanel from "../../components/SidePanel";
 import { useGetProduct } from "../../hooks";
 import { OrderItem } from "../../typings/orders";
-import { Product, ProductsResponse, ProductType } from "../../typings/products";
+import { ProductsResponse, ProductType } from "../../typings/products";
 import "./menu.css";
+import Products from "../../components/Products";
 
 const Menu = () => {
   const [selectedOption, setSelectedOption] = useState(ProductType.Soup);
@@ -22,10 +22,6 @@ const Menu = () => {
     ProductsResponse,
     unknown
   >;
-
-  if (!products) {
-    return <div>It will be just a second</div>;
-  }
 
   const handleOnCloseClick = () => {
     setIsCartOpen(false);
@@ -96,16 +92,7 @@ const Menu = () => {
           />
         </div>
         <div className="mealCards">
-          {products?.map((d: Product) => (
-            <MealCard
-              key={d.id}
-              id={d.id}
-              title={d.title}
-              description={d.description}
-              price={d.price}
-              onAddToCard={addToCart}
-            />
-          ))}
+          <Products products={products} addToCart={addToCart} />
         </div>
       </div>
       {isCartOpen && (

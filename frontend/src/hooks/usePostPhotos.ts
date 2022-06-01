@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 
 const url = `${process.env.REACT_APP_API_URL}/orders`;
 
@@ -21,16 +22,30 @@ const usePostPhotos = (image: string, id?: string) =>
     ["photos", image],
     async () => {
       const formData = new FormData();
-      formData.append("data", DataURIToBlob(image));
-      formData.append("filename", `${id}.jpeg`);
-      formData.append("mimetype", "application/octet-stream");
+
+      formData.append("blob", DataURIToBlob(image));
+      formData.append("filename", `${id}.png`);
+      formData.append("mimetype", "image/png");
 
       return fetch(`${url}/${id}/photos`, {
         method: "POST",
         body: formData,
       })
         .then((response) => response.json())
-        .then((data) => data);
+        .then((data) => data)
+        .catch(() => {
+          toast("Something went wrong", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "error",
+            theme: "colored",
+          });
+        });
     },
     {
       enabled: !!image && !!id,

@@ -1,8 +1,9 @@
-import SignIn from "../../pages/SignIn";
+import LogIn from "../../pages/LogIn";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Orders from "../../pages/Orders";
 import PublicRoutes from "../PublicRoutes/PublicRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
         </Route>
 
         <Route path="/" element={<PublicRoutes />}>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/" element={<LogIn />} />
         </Route>
       </Routes>
     </BrowserRouter>

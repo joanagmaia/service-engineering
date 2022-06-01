@@ -11,6 +11,8 @@ import "./orders.css";
 import OrderDetail from "../../components/OrderDetail";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState<OrderResponse>();
@@ -21,11 +23,25 @@ const Orders = () => {
   const username = localStorage.getItem("username") || "";
 
   const handleLogout = () => {
-    postLogout().then(() => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      navigate("/");
-    });
+    postLogout()
+      .then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        navigate("/");
+      })
+      .catch(() => {
+        toast("Something went wrong", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          type: "error",
+          theme: "colored",
+        });
+      });
   };
 
   return (
@@ -59,6 +75,7 @@ const Orders = () => {
           />
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

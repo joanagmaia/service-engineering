@@ -2,8 +2,9 @@ import { OrderResponse } from "../../typings/orders";
 import "./orderDetail.css";
 import Button, { ButtonColor, ButtonShape, ButtonSize } from "../Button";
 import { UseQueryResult } from "react-query";
-import { useGetProduct } from "../../hooks";
+import { useGetProduct, usePostOrder } from "../../hooks";
 import { Product } from "../../typings/products";
+import gif from "../../coffee-loading.gif";
 
 type PropTypes = {
   order: OrderResponse;
@@ -14,21 +15,31 @@ type PropTypes = {
 
 const OrderDetail = ({ order, setSelectedOrder }: PropTypes) => {
   const products = useGetProduct(order) as any;
+  const { postOrder, isLoading: isPrepareLoading } = usePostOrder();
 
   const isLoading = products.some((p: UseQueryResult<Product>) => p.isLoading);
 
   if (isLoading) {
-    return <p>loading</p>;
+    return (
+      <div
+        className="orderDetail"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img height="300" src={gif} alt={gif} />
+      </div>
+    );
   }
 
   const productsData = products.map((p: UseQueryResult<Product>) => p.data);
   const fullOrder = {
     ...order,
-    items: order.items.map((item) => ({
-      quantity: item[Object.keys(item)[0]],
-      product: productsData.find(
-        (product: Product) => product.id === Object.keys(item)[0]
-      ),
+    items: Object.entries(order.items).map(([key, value]) => ({
+      quantity: value,
+      product: productsData.find((product: Product) => product.id === key),
     })),
   };
 
@@ -59,11 +70,12 @@ const OrderDetail = ({ order, setSelectedOrder }: PropTypes) => {
       </div>
       <div className="completeBtn">
         <Button
-          text="Complete"
-          onClick={() => null}
+          text="Prepare Order"
+          onClick={() => postOrder(order.id)}
           shape={ButtonShape.FullWidth}
           btnColor={ButtonColor.Green}
           btnSize={ButtonSize.Medium}
+          isLoading={isPrepareLoading}
         />
       </div>
     </div>
